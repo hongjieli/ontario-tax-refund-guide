@@ -1,0 +1,18 @@
+[
+  {
+    "route": "PVG-HKG-YYZ",
+    "airlines": ["Cathay Pacific"],
+    "price": 1580,
+    "currency": "CAD",
+    "stops": 1,
+    "layover_airport": "HKG",
+    "layover_min": 185,
+    "duration_h": 20.8,
+    "self_transfer": false,
+    "airport_change": false,
+    "overnight": false,
+    "visa_unclear": false,
+    "excluded_transit": false,
+    "notes": ["single ticket", "good for elderly travelers"]
+  }
+]

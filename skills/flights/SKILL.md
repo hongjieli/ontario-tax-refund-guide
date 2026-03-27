@@ -5,7 +5,7 @@ description: Search, compare, and triage flight options for travelers. Use when 
 
 # Flights
 
-Use this skill to structure flight search work and turn messy fare options into a short, decision-ready recommendation.
+Use this skill to convert messy flight search results into a short, practical recommendation.
 
 ## Workflow
 
@@ -23,19 +23,30 @@ Use this skill to structure flight search work and turn messy fare options into 
    - budget
    - traveler constraints such as age, visa status, baggage, overnight-transfer tolerance
 3. Search with available web tools or user-provided screenshots.
-4. Normalize options into a small comparison list.
-5. Flag practical risks before recommending anything.
+4. Normalize candidate itineraries into JSON.
+5. Use the scoring script to rank them.
+6. Use the summary script to produce a user-facing recommendation.
 
-## What to optimize for
+## Search behavior
 
-Prioritize in this order unless the user says otherwise:
+Prefer a small number of good options over a giant dump.
+
+When the search source is unstable or hard to automate:
+
+- ask the user for screenshots of candidate results if needed
+- still apply this skill's screening rules
+- be explicit about what is verified vs assumed
+
+## Safety and quality rules
+
+Optimize in this order unless the user says otherwise:
 
 1. legality and transfer feasibility
 2. traveler suitability
 3. total travel time and complexity
 4. price
 
-Do not recommend an itinerary only because it is cheap if the transfer looks fragile or may require an unexpected visa, airport change, self-transfer, or recheck of bags.
+Do not recommend an itinerary only because it is cheap if the transfer looks fragile or may require an unexpected visa, airport change, self-transfer, or baggage recheck.
 
 ## Required checks before recommending
 
@@ -64,18 +75,11 @@ Prefer these when the traveler is older or wants minimum hassle:
 - avoid self-transfer itineraries
 - prefer familiar hubs or same-country domestic connection over complicated international transit when rules are unclear
 
-## China-passport / visa-sensitive heuristics
-
-When the user mentions Chinese passport holders or missing visas/permits:
-
-- treat transit rules as a first-class constraint
-- avoid making hard claims about eligibility unless verified from the carrier or official policy
-- if uncertain, label the route as "needs transit-rule confirmation"
-- prefer routes with lower transit-friction when helping family members or older travelers
+Read `references/elderly-and-visa.md` when the user mentions parents, grandparents, Chinese passports, missing visas, or "most convenient" travel.
 
 ## Output format
 
-Keep recommendations compact. Use bullets, not tables on chat surfaces.
+Keep recommendations compact. Use bullets, not markdown tables on chat surfaces.
 
 For each option include:
 
@@ -96,5 +100,8 @@ Then end with a short bottom line such as:
 
 ## Bundled resources
 
-- Read `references/triage-guide.md` when you need the ranking logic and risk checklist.
-- Use `scripts/filter_itineraries.py` to score candidate itineraries after you collect raw options from screenshots, websites, or manual notes.
+- Read `references/triage-guide.md` for the ranking logic and risk checklist.
+- Read `references/elderly-and-visa.md` for conservative routing guidance.
+- Use `references/input-example.json` as the input shape.
+- Run `scripts/filter_itineraries.py` to score candidate itineraries.
+- Run `scripts/summarize_itineraries.py` to generate a concise traveler-facing summary.
