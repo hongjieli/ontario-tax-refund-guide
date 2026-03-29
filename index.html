@@ -540,7 +540,7 @@
           taxYear: '报税年度', age: '年末年龄', marital: '婚姻状态', single: '单身', married: '已婚 / 同居',
           residencyMonths: '该报税年度在安省居住月数', newcomer: '是否属于新移民 / 首次在加拿大建立税务居住身份', yes: '是', no: '否',
           childrenCount: '18 岁以下子女人数', spouseIncome: '配偶年收入（没有则填 0）',
-          employmentIncome: 'T4 工资收入', selfEmploymentIncome: '自雇净收入', otherIncome: '其他收入', taxWithheld: '已预扣所得税',
+          employmentIncome: 'T4 工资收入', selfEmploymentIncome: '自雇净收入', otherIncome: '其他收入', taxWithheld: '已预扣所得税', t4EmploymentIncomeHint: '对应 T4 slip 里的 Employment income，通常在 Box 14。', t4TaxWithheldHint: '对应 T4 slip 里的 Income tax deducted，通常在 Box 22。',
           rentPaid: '全年房租总额', propertyTaxPaid: '全年房产税总额',
           tuition: '学费（eligible tuition）', rrsp: 'RRSP 供款', childCare: '托儿费', medical: '医疗支出', movingExpenses: '搬家费用（若符合资格）', firstHomeBuyer: '是否考虑首套房相关申报',
           consultName: '姓名 / Name（可选）', consultContact: '联系方式 / Contact（可选）', consultNotes: '备注 / 想咨询的问题（可选）'
@@ -549,7 +549,7 @@
           residencyMonths: '通常居住月份越完整，越接近正常福利资格判断。',
           newcomer: '新移民/首年居民常出现“全年规则不完全适用”的情况，这里只做保守提醒。',
           spouseIncome: '如果你是单身，这项自动按 0 处理。',
-          taxWithheld: '一般在 T4 的 income tax deducted 一栏。',
+          taxWithheld: '一般在 T4 的 income tax deducted 一栏。', employmentIncomeT4: '如果你拿的是工资单，优先看 T4 slip 上的 Employment income（通常是 Box 14）。', selfEmploymentIncome: '自雇收入通常不在 T4 上，而是你自己记账后的净收入。',
           movingExpenses: '只有在满足 CRA 规则时才能抵扣，这里只做保守估算。',
           firstHomeBuyer: '这里仅做提示，不直接把首套房抵免折现为现金。'
         },
@@ -603,7 +603,7 @@
           taxYear: 'Tax year', age: 'Age at year-end', marital: 'Marital status', single: 'Single', married: 'Married / Common-law',
           residencyMonths: 'Months lived in Ontario in the tax year', newcomer: 'Newcomer / first year establishing Canadian tax residency', yes: 'Yes', no: 'No',
           childrenCount: 'Number of children under 18', spouseIncome: 'Spouse income (0 if none)',
-          employmentIncome: 'Employment income (T4)', selfEmploymentIncome: 'Self-employment net income', otherIncome: 'Other income', taxWithheld: 'Income tax withheld',
+          employmentIncome: 'Employment income (T4)', selfEmploymentIncome: 'Self-employment net income', otherIncome: 'Other income', taxWithheld: 'Income tax withheld', t4EmploymentIncomeHint: 'Usually Employment income on your T4 slip, commonly Box 14.', t4TaxWithheldHint: 'Usually Income tax deducted on your T4 slip, commonly Box 22.',
           rentPaid: 'Total annual rent paid', propertyTaxPaid: 'Total annual property tax paid',
           tuition: 'Eligible tuition', rrsp: 'RRSP contributions', childCare: 'Child care expenses', medical: 'Medical expenses', movingExpenses: 'Moving expenses (if eligible)', firstHomeBuyer: 'Considering first-home related claim',
           consultName: 'Name (optional)', consultContact: 'Contact (optional)', consultNotes: 'Notes / questions (optional)'
@@ -612,7 +612,7 @@
           residencyMonths: 'Full-year Ontario residence usually aligns better with standard benefit eligibility assumptions.',
           newcomer: 'Newcomers and first-year residents often have partial-year rules. This tool keeps that treatment conservative.',
           spouseIncome: 'Automatically treated as 0 if you are single.',
-          taxWithheld: 'Usually shown on your T4 as income tax deducted.',
+          taxWithheld: 'Usually shown on your T4 as income tax deducted.', employmentIncomeT4: 'If you are an employee, start with Employment income on your T4 slip, commonly Box 14.', selfEmploymentIncome: 'Self-employment income usually does not come from a T4. Use your own net business income estimate.',
           movingExpenses: 'Only deductible if CRA rules are met; estimated conservatively here.',
           firstHomeBuyer: 'Shown as a planning reminder, not directly converted to cash in this estimator.'
         },
@@ -851,12 +851,12 @@
             <div class="desc">${L.questions[2][1]}</div>
             <div class="field-grid">
               <div class="row-2">
-                <div class="field"><label>${L.labels.employmentIncome}</label><input id="employmentIncome" type="number" min="0" step="0.01" value="${state.employmentIncome}"></div>
-                <div class="field"><label>${L.labels.selfEmploymentIncome}</label><input id="selfEmploymentIncome" type="number" min="0" step="0.01" value="${state.selfEmploymentIncome}"></div>
+                <div class="field"><label>${L.labels.employmentIncome}</label><input id="employmentIncome" type="number" min="0" step="0.01" value="${state.employmentIncome}"><small>${L.help.employmentIncomeT4} ${L.labels.t4EmploymentIncomeHint || L.labels.t4EmploymentIncomeHint === '' ? '' : ''}</small><small>${L.labels.t4EmploymentIncomeHint}</small></div>
+                <div class="field"><label>${L.labels.selfEmploymentIncome}</label><input id="selfEmploymentIncome" type="number" min="0" step="0.01" value="${state.selfEmploymentIncome}"><small>${L.help.selfEmploymentIncome}</small></div>
               </div>
               <div class="row-2">
-                <div class="field"><label>${L.labels.otherIncome}</label><input id="otherIncome" type="number" min="0" step="0.01" value="${state.otherIncome}"></div>
-                <div class="field"><label>${L.labels.taxWithheld}</label><input id="taxWithheld" type="number" min="0" step="0.01" value="${state.taxWithheld}"><small>${L.help.taxWithheld}</small></div>
+                <div class="field"><label>${L.labels.otherIncome}</label><input id="otherIncome" type="number" min="0" step="0.01" value="${state.otherIncome}"><small>${state.lang === 'zh' ? '例如部分利息收入、T5、T4A、EI、奖学金中需要纳税的部分等。' : 'For example: some interest income, T5, T4A, EI, or taxable scholarship amounts.'}</small></div>
+                <div class="field"><label>${L.labels.taxWithheld}</label><input id="taxWithheld" type="number" min="0" step="0.01" value="${state.taxWithheld}"><small>${L.help.taxWithheld}</small><small>${L.labels.t4TaxWithheldHint}</small></div>
               </div>
             </div>
           `;
