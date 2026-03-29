@@ -3,67 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>安省退税计算器 · 引导式估算</title>
-  <meta name="description" content="中文引导式安省退税计算器，估算安省常见退税与福利，包括预扣税退回、GST/HST Credit、Ontario Trillium Benefit、Canada Workers Benefit 等。" />
+  <title>Ontario Tax Refund Guide | 安省退税计算器</title>
+  <meta name="description" content="中英双语安省退税计算器。引导式估算加拿大安省常见退税与福利，支持保存、导出、恢复。" />
   <style>
     :root {
       --bg: #f5f7fb;
-      --surface: rgba(255,255,255,.82);
-      --surface-solid: #ffffff;
-      --text: #18212f;
-      --muted: #667085;
-      --line: #e6ebf2;
-      --primary: #3b82f6;
-      --primary-2: #2563eb;
+      --surface: rgba(255,255,255,.84);
+      --surface-solid: #fff;
+      --text: #142132;
+      --muted: #64748b;
+      --line: #e4eaf2;
+      --primary: #2563eb;
+      --primary-2: #3b82f6;
       --success: #0f9f6e;
       --warning: #d97706;
       --danger: #dc2626;
-      --lav: #f3e8ff;
-      --blue-soft: #e8f1ff;
-      --green-soft: #e9fbf3;
-      --yellow-soft: #fff7df;
-      --shadow: 0 12px 40px rgba(24,33,47,.08);
-      --radius: 22px;
-      --radius-sm: 14px;
-      --max: 1160px;
+      --soft-blue: #eaf2ff;
+      --soft-green: #eafaf3;
+      --soft-yellow: #fff8df;
+      --soft-purple: #f4e8ff;
+      --shadow: 0 16px 40px rgba(20,33,50,.08);
+      --radius: 26px;
+      --radius-sm: 16px;
+      --max: 1220px;
     }
-
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, #dbeafe 0, transparent 32%),
-        radial-gradient(circle at top right, #f5d0fe 0, transparent 18%),
-        linear-gradient(180deg, #f7fbff 0%, #f5f7fb 100%);
+        radial-gradient(circle at top left, rgba(96,165,250,.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(216,180,254,.18), transparent 24%),
+        linear-gradient(180deg, #f9fbff 0%, #f5f7fb 100%);
       min-height: 100vh;
     }
-
     .wrap {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 24px 18px 48px;
+      padding: 20px 16px 48px;
     }
-
+    .glass {
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,.72);
+      box-shadow: var(--shadow);
+      border-radius: 28px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+    }
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 24px rgba(37,99,235,.26);
+    }
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
     .hero {
       display: grid;
       grid-template-columns: 1.15fr .85fr;
       gap: 18px;
-      align-items: stretch;
-      margin-top: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
-
-    .glass {
-      background: var(--surface);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,.7);
-      box-shadow: var(--shadow);
-      border-radius: 28px;
-    }
-
     .hero-main {
       padding: 28px;
       position: relative;
@@ -72,8 +94,8 @@
     .hero-main::after {
       content: "";
       position: absolute;
-      right: -40px;
-      top: -40px;
+      right: -34px;
+      top: -34px;
       width: 180px;
       height: 180px;
       background: radial-gradient(circle, rgba(59,130,246,.18), transparent 70%);
@@ -83,19 +105,19 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--blue-soft);
-      color: var(--primary-2);
+      background: var(--soft-blue);
+      color: var(--primary);
       padding: 8px 12px;
       border-radius: 999px;
       font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 16px;
+      font-weight: 800;
+      margin-bottom: 14px;
     }
     h1 {
-      margin: 0 0 12px;
-      font-size: 38px;
-      line-height: 1.15;
-      letter-spacing: -.02em;
+      margin: 0 0 10px;
+      font-size: 40px;
+      line-height: 1.12;
+      letter-spacing: -.03em;
     }
     .hero p {
       margin: 0;
@@ -103,152 +125,142 @@
       line-height: 1.8;
       font-size: 15px;
     }
-    .hero-cards {
+    .hero-side {
       display: grid;
       gap: 16px;
     }
     .mini-card {
-      padding: 18px 18px;
-      border-radius: 24px;
+      padding: 18px;
+      border-radius: 26px;
       background: var(--surface);
       border: 1px solid rgba(255,255,255,.72);
       box-shadow: var(--shadow);
     }
     .mini-card .k {
-      color: var(--muted);
       font-size: 13px;
+      color: var(--muted);
       margin-bottom: 8px;
     }
     .mini-card .v {
-      font-size: 26px;
-      font-weight: 800;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -.03em;
     }
     .mini-card .s {
-      margin-top: 6px;
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.6;
+      line-height: 1.7;
+      margin-top: 6px;
     }
-
     .main {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) 360px;
-      gap: 20px;
+      grid-template-columns: minmax(0, 1.18fr) 380px;
+      gap: 18px;
       align-items: start;
     }
-
-    .panel, .sidebar {
-      background: var(--surface);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,.7);
-      box-shadow: var(--shadow);
+    .panel, .sidebar, .marketing {
+      padding: 20px;
       border-radius: 28px;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,.72);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
-
-    .panel { padding: 20px; }
-    .sidebar { padding: 18px; position: sticky; top: 14px; }
-
-    .progress-box {
-      margin-bottom: 18px;
-    }
+    .sidebar { position: sticky; top: 14px; }
+    .marketing { margin-top: 18px; }
     .progress-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
       color: var(--muted);
       font-size: 13px;
+      margin-bottom: 10px;
     }
     .progress-track {
-      height: 10px;
       width: 100%;
-      background: #e9eef6;
+      height: 10px;
+      background: #eaf0f8;
       border-radius: 999px;
       overflow: hidden;
     }
     .progress-fill {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #60a5fa, #2563eb);
       width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #60a5fa, #2563eb);
+      border-radius: 999px;
       transition: width .25s ease;
     }
-
     .step-tabs {
       display: flex;
-      gap: 8px;
       flex-wrap: wrap;
+      gap: 8px;
       margin: 16px 0 18px;
     }
     .step-tab {
-      border: 1px solid var(--line);
       padding: 8px 12px;
       border-radius: 999px;
+      border: 1px solid var(--line);
       font-size: 13px;
       color: var(--muted);
       background: rgba(255,255,255,.7);
     }
     .step-tab.active {
-      background: var(--blue-soft);
-      color: var(--primary-2);
-      border-color: #bfd8ff;
-      font-weight: 700;
+      background: var(--soft-blue);
+      color: var(--primary);
+      border-color: #cfe0ff;
+      font-weight: 800;
     }
-
     .question {
       font-size: 30px;
       line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: -.03em;
       margin: 8px 0 8px;
-      font-weight: 800;
-      letter-spacing: -.02em;
     }
     .desc {
       color: var(--muted);
       line-height: 1.8;
-      margin-bottom: 20px;
       font-size: 15px;
+      margin-bottom: 18px;
     }
-
     .field-grid { display: grid; gap: 14px; }
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-
     .field {
-      background: rgba(255,255,255,.78);
       border: 1px solid var(--line);
       border-radius: 18px;
       padding: 14px;
+      background: rgba(255,255,255,.8);
     }
     .field label {
       display: block;
-      font-size: 13px;
-      color: var(--muted);
       margin-bottom: 8px;
-      font-weight: 600;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
     }
     .field small {
       display: block;
       margin-top: 6px;
       color: var(--muted);
-      line-height: 1.55;
+      line-height: 1.6;
     }
-    input, select {
+    input, select, textarea {
       width: 100%;
-      border: 1px solid #dce5f1;
-      background: #fff;
+      border: 1px solid #d9e4f0;
       border-radius: 14px;
+      background: #fff;
       padding: 12px 13px;
       font-size: 15px;
-      color: var(--text);
       outline: none;
+      color: var(--text);
       transition: .15s ease;
     }
-    input:focus, select:focus {
+    input:focus, select:focus, textarea:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 4px rgba(59,130,246,.14);
     }
-
     .choice-row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -256,503 +268,461 @@
     }
     .choice {
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.78);
       border-radius: 18px;
-      padding: 14px 15px;
+      padding: 14px;
+      background: rgba(255,255,255,.78);
       cursor: pointer;
       transition: .15s ease;
     }
-    .choice:hover { border-color: #bcd6ff; transform: translateY(-1px); }
+    .choice:hover { transform: translateY(-1px); border-color: #bfd6ff; }
     .choice.active {
-      border-color: #9fc2ff;
-      background: linear-gradient(180deg, #f4f9ff, #eaf3ff);
-      box-shadow: inset 0 0 0 1px rgba(59,130,246,.08);
+      border-color: #9bc0ff;
+      background: linear-gradient(180deg, #f4f8ff, #eaf2ff);
+      box-shadow: inset 0 0 0 1px rgba(37,99,235,.08);
     }
-    .choice .title { font-weight: 700; margin-bottom: 5px; }
+    .choice .title { font-weight: 800; margin-bottom: 5px; }
     .choice .sub { color: var(--muted); font-size: 13px; line-height: 1.6; }
-
     .actions {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
-      margin-top: 22px;
+      gap: 10px;
+      margin-top: 20px;
       padding-top: 18px;
-      border-top: 1px solid rgba(230,235,242,.8);
+      border-top: 1px solid rgba(228,234,242,.9);
     }
     .btn {
       border: 0;
       border-radius: 16px;
-      padding: 13px 18px;
-      font-size: 15px;
-      font-weight: 700;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 800;
       cursor: pointer;
       transition: .15s ease;
     }
     .btn:hover { transform: translateY(-1px); }
-    .btn.secondary {
-      background: #eef3f9;
-      color: var(--text);
-    }
     .btn.primary {
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
       color: #fff;
-      box-shadow: 0 10px 18px rgba(37,99,235,.22);
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      box-shadow: 0 10px 24px rgba(37,99,235,.25);
     }
-
-    .side-title {
-      font-size: 18px;
-      margin: 0 0 12px;
-    }
-    .summary-list, .result-list { display: grid; gap: 12px; }
-    .sum-item, .result-item {
+    .btn.secondary { background: #eef3f9; color: var(--text); }
+    .btn.success { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+    .btn.warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
+    .btn.ghost {
       background: rgba(255,255,255,.78);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .side-title {
+      margin: 0 0 12px;
+      font-size: 19px;
+    }
+    .summary-list, .result-list, .marketing-list { display: grid; gap: 12px; }
+    .sum-item, .result-item, .mark-item {
       border: 1px solid var(--line);
       border-radius: 18px;
+      background: rgba(255,255,255,.8);
       padding: 14px;
     }
-    .label {
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 6px;
-      line-height: 1.5;
-    }
-    .value {
-      font-size: 19px;
-      font-weight: 800;
-      line-height: 1.3;
-    }
-    .muted {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
+    .label { color: var(--muted); font-size: 12px; line-height: 1.55; margin-bottom: 6px; }
+    .value { font-size: 20px; font-weight: 900; line-height: 1.3; }
+    .muted { color: var(--muted); font-size: 13px; line-height: 1.7; }
     .hero-total {
       background: linear-gradient(135deg, rgba(59,130,246,.08), rgba(16,185,129,.08));
-      border: 1px solid #dbe7ff;
-    }
-    .hero-total .big {
-      font-size: 34px;
-      font-weight: 900;
-      letter-spacing: -.03em;
-      margin-bottom: 6px;
+      border: 1px solid #dce9ff;
     }
     .tag {
       display: inline-flex;
       align-items: center;
-      border-radius: 999px;
       padding: 4px 8px;
+      border-radius: 999px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       margin-left: 8px;
     }
-    .tag.green { background: #ddf8ea; color: var(--success); }
-    .tag.yellow { background: #fff3cf; color: var(--warning); }
-    .tag.blue { background: #e1efff; color: var(--primary-2); }
-
+    .tag.green { background: #dcf8e9; color: var(--success); }
+    .tag.yellow { background: #fff0c7; color: var(--warning); }
+    .tag.blue { background: #e1efff; color: var(--primary); }
     .insight {
       margin-top: 16px;
-      padding: 14px;
       border-radius: 18px;
-      background: linear-gradient(180deg, #fff, #fbfcff);
-      border: 1px dashed #d8e2f0;
+      padding: 14px;
+      background: linear-gradient(180deg, #fff, #fafcff);
+      border: 1px dashed #d7e1ef;
       color: var(--muted);
       line-height: 1.75;
       font-size: 14px;
     }
-
     .footer-note {
       margin-top: 18px;
-      padding: 16px;
       border-radius: 18px;
-      background: #fffdfa;
-      border: 1px solid #f5e7bf;
-      color: #7a5a12;
+      padding: 16px;
+      background: #fffdf6;
+      border: 1px solid #f5e5b5;
+      color: #7a5d16;
       font-size: 13px;
       line-height: 1.75;
     }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
     .pill {
-      padding: 8px 10px;
       border-radius: 999px;
-      font-size: 12px;
+      padding: 8px 10px;
       background: #f0f5fb;
-      color: #506176;
-      border: 1px solid #dde7f4;
+      color: #53657c;
+      border: 1px solid #dde7f3;
+      font-size: 12px;
     }
-
-    @media (max-width: 980px) {
+    .toast {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 1000;
+      background: rgba(20,33,50,.95);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      box-shadow: 0 16px 32px rgba(0,0,0,.16);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: .2s ease;
+      max-width: 320px;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 1020px) {
       .hero, .main { grid-template-columns: 1fr; }
       .sidebar { position: static; }
     }
-    @media (max-width: 720px) {
-      h1 { font-size: 30px; }
+    @media (max-width: 760px) {
+      h1 { font-size: 31px; }
       .question { font-size: 24px; }
       .row-2, .row-3, .choice-row { grid-template-columns: 1fr; }
-      .panel, .sidebar, .hero-main, .mini-card { padding: 16px; border-radius: 22px; }
+      .hero-main, .mini-card, .panel, .sidebar, .marketing { padding: 16px; border-radius: 22px; }
       .wrap { padding: 14px 12px 36px; }
+      .toolbar { width: 100%; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <section class="hero">
-      <div class="hero-main glass">
-        <div class="badge">🇨🇦 安省中文引导式估算</div>
-        <h1>安省退税计算器</h1>
-        <p>
-          用更接近真实报税场景的方式，估算你在安省可能拿到的年度退税和常见福利。
-          这不是 CRA 官方计算器，但比“只看收入”的粗略工具更实用，适合报税前快速判断方向。
-        </p>
-        <div class="pill-row">
-          <div class="pill">支持工资 / 自雇收入</div>
-          <div class="pill">支持配偶收入</div>
-          <div class="pill">支持房租 / 地税</div>
-          <div class="pill">支持学费 / RRSP / 托儿费 / 医疗费</div>
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-badge">CA</div>
+        <div>
+          <div id="brandTitle">Ontario Tax Refund Guide</div>
+          <div class="muted" id="brandSub">加拿大安省退税 / 福利引导式估算</div>
         </div>
       </div>
-      <div class="hero-cards">
+      <div class="toolbar">
+        <button class="btn ghost" id="langBtn">中文 / EN</button>
+        <button class="btn ghost" id="saveBtn">保存</button>
+        <button class="btn ghost" id="exportBtn">导出</button>
+        <button class="btn ghost" id="importBtn">导入</button>
+        <button class="btn ghost" id="resetBtn">清空</button>
+        <input type="file" id="fileInput" accept="application/json" style="display:none;">
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-main glass">
+        <div class="badge" id="heroBadge">🇨🇦 中英双语 · 支持保存与恢复</div>
+        <h1 id="heroTitle">安省退税计算器</h1>
+        <p id="heroText">这是一页更接近真实报税场景的安省退税估算工具：支持家庭收入、房租/地税、RRSP、学费、托儿费、医疗费，并可保存你的填写记录，稍后继续。</p>
+        <div class="pill-row" id="heroPills"></div>
+      </div>
+      <div class="hero-side">
         <div class="mini-card hero-total">
-          <div class="k">预估可获得总额</div>
-          <div class="big" id="heroGrandTotal">CA$0</div>
-          <div class="s">包含潜在退税 + 可退还福利的估算总和。</div>
+          <div class="k" id="totalLabel">预估可获得总额</div>
+          <div class="v" id="heroGrandTotal">CA$0</div>
+          <div class="s" id="totalSub">包含潜在退税与现金性福利的合计估算。</div>
         </div>
         <div class="mini-card">
-          <div class="k">你会看到的重点</div>
-          <div class="s">
-            哪些项目更可能拿到、哪些只是有限抵税、以及哪些输入项对结果影响最大。
-          </div>
+          <div class="k" id="saveCardTitle">保存功能</div>
+          <div class="s" id="saveCardText">支持浏览器本地保存、JSON 导出、JSON 导入。你可以今天填一半，之后继续。</div>
         </div>
       </div>
     </section>
 
     <section class="main">
-      <div class="panel">
-        <div class="progress-box">
+      <div>
+        <div class="panel">
           <div class="progress-meta">
-            <span id="progressText">步骤 1 / 5</span>
-            <span id="progressPercent">20%</span>
+            <span id="progressText">步骤 1 / 6</span>
+            <span id="progressPercent">17%</span>
           </div>
           <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="step-tabs" id="stepTabs"></div>
+          <div id="wizard"></div>
+          <div class="actions">
+            <button class="btn secondary" id="prevBtn">上一步</button>
+            <button class="btn primary" id="nextBtn">下一步</button>
+          </div>
         </div>
 
-        <div class="step-tabs" id="stepTabs"></div>
-        <div id="wizard"></div>
-
-        <div class="actions">
-          <button class="btn secondary" id="prevBtn">上一步</button>
-          <button class="btn primary" id="nextBtn">下一步</button>
+        <div class="marketing" id="marketingBox">
+          <h2 class="side-title" id="marketingTitle">需要人工协助？</h2>
+          <div class="marketing-list" id="marketingList"></div>
         </div>
       </div>
 
       <aside class="sidebar">
-        <h2 class="side-title">你的概况</h2>
+        <h2 class="side-title" id="summaryTitle">你的概况</h2>
         <div class="summary-list" id="summaryList"></div>
-
-        <div class="insight" id="insightBox">
-          先把左边问题填完，我会在这里告诉你：结果主要由哪些因素决定、哪里还有优化空间。
-        </div>
+        <div class="insight" id="insightBox">先填写左侧信息，我会告诉你哪些因素对结果影响最大。</div>
       </aside>
     </section>
 
-    <section class="panel" style="margin-top:20px;">
-      <h2 class="side-title" style="font-size:22px;">估算结果</h2>
+    <section class="panel" style="margin-top:18px;">
+      <h2 class="side-title" id="resultTitle">估算结果</h2>
       <div class="result-list" id="resultList"></div>
-      <div class="footer-note">
-        <strong>免责声明：</strong>
-        本工具是中文引导式估算器，不是正式报税软件，也不构成税务建议。
-        实际结果会受报税年度规则、配偶资料、移民/居住状态、T4/T5/T4A/T2202、学费结转、残障抵免、首套房、搬家、工签/学签、分居时间、托儿费归属、以及更多 CRA 细项影响。
-      </div>
+      <div class="footer-note" id="disclaimer"></div>
     </section>
   </div>
 
+  <div class="toast" id="toast"></div>
+
   <script>
-    const state = {
+    const STORAGE_KEY = 'ontarioTaxGuideState.v2';
+    const defaultState = {
+      lang: 'zh',
       taxYear: new Date().getFullYear() - 1,
       age: 30,
       maritalStatus: 'single',
       residencyMonths: 12,
+      newcomer: 'no',
       childrenCount: 0,
       spouseIncome: 0,
-
       employmentIncome: 0,
       selfEmploymentIncome: 0,
       otherIncome: 0,
       taxWithheld: 0,
-
       rentPaid: 0,
       propertyTaxPaid: 0,
-
       tuition: 0,
       rrsp: 0,
       childCare: 0,
-      medical: 0
+      medical: 0,
+      movingExpenses: 0,
+      firstHomeBuyer: 'no',
+      consultName: '',
+      consultContact: '',
+      consultNotes: ''
     };
 
-    const steps = [
-      {
-        title: '基础身份',
-        render: () => `
-          <div class="question">先确认你是谁、住了多久</div>
-          <div class="desc">这一步决定你是否可能符合安省和联邦的常见福利资格，也会影响阈值判断。</div>
-          <div class="field-grid">
-            <div class="row-2">
-              <div class="field">
-                <label>报税年度</label>
-                <input id="taxYear" type="number" min="2020" max="2100" value="${state.taxYear}">
-              </div>
-              <div class="field">
-                <label>年末年龄</label>
-                <input id="age" type="number" min="16" max="100" value="${state.age}">
-              </div>
-            </div>
-            <div class="field">
-              <label>婚姻状态</label>
-              <div class="choice-row" id="maritalChoices">
-                <div class="choice ${state.maritalStatus==='single'?'active':''}" data-value="single">
-                  <div class="title">单身</div>
-                  <div class="sub">按个人阈值估算 GST/HST、OTB、CWB 等。</div>
-                </div>
-                <div class="choice ${state.maritalStatus==='married'?'active':''}" data-value="married">
-                  <div class="title">已婚 / 同居</div>
-                  <div class="sub">会考虑家庭收入口径，对部分福利影响很大。</div>
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <label>该报税年度在安省居住月数</label>
-              <input id="residencyMonths" type="number" min="0" max="12" value="${state.residencyMonths}">
-              <small>一般来说，年度内在安省实际居住月数越完整，越容易接近正常资格判断。</small>
-            </div>
-          </div>
-        `,
-        collect: () => {
-          state.taxYear = num('taxYear');
-          state.age = num('age');
-          state.residencyMonths = num('residencyMonths');
-          bindMaritalCollect();
-        }
-      },
-      {
-        title: '家庭情况',
-        render: () => `
-          <div class="question">再看家庭口径</div>
-          <div class="desc">安省和联邦很多福利不是只看你一个人的收入，而是看家庭净收入。</div>
-          <div class="field-grid">
-            <div class="row-2">
-              <div class="field">
-                <label>18 岁以下子女人数</label>
-                <input id="childrenCount" type="number" min="0" max="20" value="${state.childrenCount}">
-              </div>
-              <div class="field">
-                <label>配偶年收入（没有则填 0）</label>
-                <input id="spouseIncome" type="number" min="0" step="0.01" value="${state.spouseIncome}">
-                <small>如果你是单身，这项会自动按 0 处理。</small>
-              </div>
-            </div>
-          </div>
-        `,
-        collect: () => {
-          state.childrenCount = num('childrenCount');
-          state.spouseIncome = state.maritalStatus === 'married' ? num('spouseIncome') : 0;
-        }
-      },
-      {
-        title: '收入与预扣税',
-        render: () => `
-          <div class="question">核心收入信息</div>
-          <div class="desc">这里会影响你是否本来就税负很低，以及公司代扣的税有没有机会退回来。</div>
-          <div class="field-grid">
-            <div class="row-2">
-              <div class="field">
-                <label>T4 工资收入</label>
-                <input id="employmentIncome" type="number" min="0" step="0.01" value="${state.employmentIncome}">
-              </div>
-              <div class="field">
-                <label>自雇净收入</label>
-                <input id="selfEmploymentIncome" type="number" min="0" step="0.01" value="${state.selfEmploymentIncome}">
-              </div>
-            </div>
-            <div class="row-2">
-              <div class="field">
-                <label>其他收入（如利息、兼职、部分补助等）</label>
-                <input id="otherIncome" type="number" min="0" step="0.01" value="${state.otherIncome}">
-              </div>
-              <div class="field">
-                <label>已预扣所得税（T4 上 income tax deducted）</label>
-                <input id="taxWithheld" type="number" min="0" step="0.01" value="${state.taxWithheld}">
-              </div>
-            </div>
-          </div>
-        `,
-        collect: () => {
-          state.employmentIncome = num('employmentIncome');
-          state.selfEmploymentIncome = num('selfEmploymentIncome');
-          state.otherIncome = num('otherIncome');
-          state.taxWithheld = num('taxWithheld');
-        }
-      },
-      {
-        title: '住房成本',
-        render: () => `
-          <div class="question">住房支出会影响安省福利</div>
-          <div class="desc">如果你在安省租房或交房产税，Ontario Trillium Benefit 里的住房相关部分可能会比较关键。</div>
-          <div class="field-grid">
-            <div class="row-2">
-              <div class="field">
-                <label>全年房租总额</label>
-                <input id="rentPaid" type="number" min="0" step="0.01" value="${state.rentPaid}">
-              </div>
-              <div class="field">
-                <label>全年房产税总额</label>
-                <input id="propertyTaxPaid" type="number" min="0" step="0.01" value="${state.propertyTaxPaid}">
-              </div>
-            </div>
-          </div>
-        `,
-        collect: () => {
-          state.rentPaid = num('rentPaid');
-          state.propertyTaxPaid = num('propertyTaxPaid');
-        }
-      },
-      {
-        title: '抵扣与补充',
-        render: () => `
-          <div class="question">最后补上常见抵扣项</div>
-          <div class="desc">这些通常不能直接“变成现金”，但会降低应税收入或减少应纳税额，从而影响最终退税。</div>
-          <div class="field-grid">
-            <div class="row-2">
-              <div class="field">
-                <label>学费（eligible tuition）</label>
-                <input id="tuition" type="number" min="0" step="0.01" value="${state.tuition}">
-              </div>
-              <div class="field">
-                <label>RRSP 供款</label>
-                <input id="rrsp" type="number" min="0" step="0.01" value="${state.rrsp}">
-              </div>
-            </div>
-            <div class="row-2">
-              <div class="field">
-                <label>托儿费（child care expenses）</label>
-                <input id="childCare" type="number" min="0" step="0.01" value="${state.childCare}">
-              </div>
-              <div class="field">
-                <label>医疗支出（medical expenses）</label>
-                <input id="medical" type="number" min="0" step="0.01" value="${state.medical}">
-              </div>
-            </div>
-          </div>
-        `,
-        collect: () => {
-          state.tuition = num('tuition');
-          state.rrsp = num('rrsp');
-          state.childCare = num('childCare');
-          state.medical = num('medical');
-        }
-      }
-    ];
-
+    let state = loadState();
     let stepIndex = 0;
 
+    const i18n = {
+      zh: {
+        brandTitle: 'Ontario Tax Refund Guide',
+        brandSub: '加拿大安省退税 / 福利引导式估算',
+        heroBadge: '🇨🇦 中英双语 · 支持保存与恢复',
+        heroTitle: '安省退税计算器',
+        heroText: '这是一页更接近真实报税场景的安省退税估算工具：支持家庭收入、房租/地税、RRSP、学费、托儿费、医疗费，并可保存你的填写记录，稍后继续。',
+        heroPills: ['支持工资 / 自雇收入', '支持配偶收入', '支持住房成本', '支持保存 / 导出 / 导入', '中英双语', '适合手机端'],
+        totalLabel: '预估可获得总额',
+        totalSub: '包含潜在退税与现金性福利的合计估算。',
+        saveCardTitle: '保存功能',
+        saveCardText: '支持浏览器本地保存、JSON 导出、JSON 导入。你可以今天填一半，之后继续。',
+        summaryTitle: '你的概况',
+        resultTitle: '估算结果',
+        marketingTitle: '需要人工协助？',
+        marketingList: [
+          ['想要更准确结果？', '这页是估算器，不是完整报税软件。你可以把本页结果作为预判，再交给专业人士复核。'],
+          ['适合加的服务入口', '这里可以放：电话、微信二维码、邮箱、Calendly 预约、在线咨询表单。'],
+          ['建议下一步', '如果你做税务获客，这里很适合加“免费初步评估”按钮。']
+        ],
+        disclaimer: '免责声明：本工具是引导式估算器，不是 CRA 官方报税软件，也不构成税务建议。实际结果会受到报税年度参数、配偶资料、移民/居住状态、学费结转、工作抵免、地区性福利、分居时间、残障税务抵免、首套房相关申报、搬家费用资格等多种细项影响。',
+        buttons: { prev: '上一步', next: '下一步', finish: '完成并计算', save: '保存', export: '导出', import: '导入', reset: '清空', lang: '中文 / EN' },
+        steps: ['基础身份', '家庭情况', '收入与预扣税', '住房成本', '抵扣与补充', '联系与保存'],
+        labels: {
+          taxYear: '报税年度', age: '年末年龄', marital: '婚姻状态', single: '单身', married: '已婚 / 同居',
+          residencyMonths: '该报税年度在安省居住月数', newcomer: '是否属于新移民 / 首次在加拿大建立税务居住身份', yes: '是', no: '否',
+          childrenCount: '18 岁以下子女人数', spouseIncome: '配偶年收入（没有则填 0）',
+          employmentIncome: 'T4 工资收入', selfEmploymentIncome: '自雇净收入', otherIncome: '其他收入', taxWithheld: '已预扣所得税',
+          rentPaid: '全年房租总额', propertyTaxPaid: '全年房产税总额',
+          tuition: '学费（eligible tuition）', rrsp: 'RRSP 供款', childCare: '托儿费', medical: '医疗支出', movingExpenses: '搬家费用（若符合资格）', firstHomeBuyer: '是否考虑首套房相关申报',
+          consultName: '姓名 / Name（可选）', consultContact: '联系方式 / Contact（可选）', consultNotes: '备注 / 想咨询的问题（可选）'
+        },
+        help: {
+          residencyMonths: '通常居住月份越完整，越接近正常福利资格判断。',
+          newcomer: '新移民/首年居民常出现“全年规则不完全适用”的情况，这里只做保守提醒。',
+          spouseIncome: '如果你是单身，这项自动按 0 处理。',
+          taxWithheld: '一般在 T4 的 income tax deducted 一栏。',
+          movingExpenses: '只有在满足 CRA 规则时才能抵扣，这里只做保守估算。',
+          firstHomeBuyer: '这里仅做提示，不直接把首套房抵免折现为现金。'
+        },
+        questions: [
+          ['先确认你是谁、住了多久', '这一步决定很多联邦与安省福利的资格判断。'],
+          ['家庭口径很重要', '很多福利看的是家庭收入，不只是你一个人的收入。'],
+          ['先看收入，再看预扣税', '这一步决定你是“可能补税”还是“更可能退税”。'],
+          ['住房支出会显著影响安省福利', '特别是 Ontario Trillium Benefit 中与住房成本相关的部分。'],
+          ['再补上常见抵扣项目', '这些通常不会等额变现金，但会降低税额、提高退税概率。'],
+          ['最后：保存、联系、后续跟进', '你可以把结果保存下来，也可以在这里预留联系方式。']
+        ],
+        resultLabels: {
+          income: '个人总收入', familyIncome: '家庭收入口径', adjustedIncome: '调整后估算收入', withheld: '已预扣税', housing: '住房支出',
+          total: '预估可获得总额', refund: '工资预扣税可能退回部分', gst: 'GST/HST Credit', trillium: 'Ontario Trillium Benefit', cwb: 'Canada Workers Benefit',
+          credits: '抵税项影响（非直接现金）', tax: '估算最终应纳税额'
+        },
+        tags: {
+          high: '可能较高', limited: '有限', likely: '较可能符合', maybe: '可能不符合', focus: '值得关注', low: '偏少', eligible: '可能可领'
+        },
+        toasts: {
+          saved: '已保存到当前浏览器。',
+          exported: '已导出 JSON 文件。',
+          imported: '已导入并恢复数据。',
+          reset: '已清空并恢复默认值。',
+          autoSaved: '已自动保存。'
+        }
+      },
+      en: {
+        brandTitle: 'Ontario Tax Refund Guide',
+        brandSub: 'Guided Ontario tax refund and benefit estimator',
+        heroBadge: '🇨🇦 Bilingual · Save and resume supported',
+        heroTitle: 'Ontario Tax Refund Calculator',
+        heroText: 'A guided estimator that is closer to real tax-filing scenarios: family income, rent/property tax, RRSP, tuition, child care, medical expenses, plus save-and-resume support.',
+        heroPills: ['Employment + self-employment', 'Spousal income support', 'Housing cost support', 'Save / export / import', 'Bilingual', 'Mobile-friendly'],
+        totalLabel: 'Estimated total you may receive',
+        totalSub: 'Combined estimate of potential refund and cash-like benefits.',
+        saveCardTitle: 'Save feature',
+        saveCardText: 'Supports browser local save, JSON export, and JSON import so you can continue later.',
+        summaryTitle: 'Your snapshot',
+        resultTitle: 'Estimated results',
+        marketingTitle: 'Need human help?',
+        marketingList: [
+          ['Need more accuracy?', 'This is an estimator, not full tax software. Use it as a fast pre-check before a professional review.'],
+          ['Lead capture ready', 'You can place phone, WeChat QR, email, Calendly, or an intake form here.'],
+          ['Suggested CTA', 'A “Free preliminary assessment” button would fit nicely here.']
+        ],
+        disclaimer: 'Disclaimer: This tool is a guided estimator only. It is not official CRA software and not tax advice. Actual results depend on filing-year parameters, spouse details, immigration/residency status, carry-forward tuition, working credits, regional benefits, separation timing, disability credits, first-home claims, moving expense eligibility, and many other CRA details.',
+        buttons: { prev: 'Previous', next: 'Next', finish: 'Finish & Calculate', save: 'Save', export: 'Export', import: 'Import', reset: 'Reset', lang: '中文 / EN' },
+        steps: ['Identity', 'Family', 'Income', 'Housing', 'Deductions', 'Contact & Save'],
+        labels: {
+          taxYear: 'Tax year', age: 'Age at year-end', marital: 'Marital status', single: 'Single', married: 'Married / Common-law',
+          residencyMonths: 'Months lived in Ontario in the tax year', newcomer: 'Newcomer / first year establishing Canadian tax residency', yes: 'Yes', no: 'No',
+          childrenCount: 'Number of children under 18', spouseIncome: 'Spouse income (0 if none)',
+          employmentIncome: 'Employment income (T4)', selfEmploymentIncome: 'Self-employment net income', otherIncome: 'Other income', taxWithheld: 'Income tax withheld',
+          rentPaid: 'Total annual rent paid', propertyTaxPaid: 'Total annual property tax paid',
+          tuition: 'Eligible tuition', rrsp: 'RRSP contributions', childCare: 'Child care expenses', medical: 'Medical expenses', movingExpenses: 'Moving expenses (if eligible)', firstHomeBuyer: 'Considering first-home related claim',
+          consultName: 'Name (optional)', consultContact: 'Contact (optional)', consultNotes: 'Notes / questions (optional)'
+        },
+        help: {
+          residencyMonths: 'Full-year Ontario residence usually aligns better with standard benefit eligibility assumptions.',
+          newcomer: 'Newcomers and first-year residents often have partial-year rules. This tool keeps that treatment conservative.',
+          spouseIncome: 'Automatically treated as 0 if you are single.',
+          taxWithheld: 'Usually shown on your T4 as income tax deducted.',
+          movingExpenses: 'Only deductible if CRA rules are met; estimated conservatively here.',
+          firstHomeBuyer: 'Shown as a planning reminder, not directly converted to cash in this estimator.'
+        },
+        questions: [
+          ['Start with identity and residency', 'This affects core federal and Ontario benefit assumptions.'],
+          ['Family income matters', 'Many benefits are based on family net income, not only your income.'],
+          ['Income and withholding first', 'This helps estimate whether you are more likely to owe or receive a refund.'],
+          ['Housing costs can matter a lot', 'Especially for Ontario Trillium Benefit housing-related parts.'],
+          ['Add common deductions and credits', 'These often reduce tax owing rather than becoming direct cash.'],
+          ['Last step: save, follow up, and contact', 'You can save your result or leave contact details here.']
+        ],
+        resultLabels: {
+          income: 'Personal total income', familyIncome: 'Family income basis', adjustedIncome: 'Adjusted estimated income', withheld: 'Tax withheld', housing: 'Housing costs',
+          total: 'Estimated total you may receive', refund: 'Possible payroll tax refund', gst: 'GST/HST Credit', trillium: 'Ontario Trillium Benefit', cwb: 'Canada Workers Benefit',
+          credits: 'Tax-credit impact (not direct cash)', tax: 'Estimated final tax owing'
+        },
+        tags: {
+          high: 'Possibly high', limited: 'Limited', likely: 'Likely eligible', maybe: 'May not qualify', focus: 'Worth attention', low: 'Lower', eligible: 'Potentially eligible'
+        },
+        toasts: {
+          saved: 'Saved to this browser.',
+          exported: 'JSON file exported.',
+          imported: 'Data imported and restored.',
+          reset: 'All fields reset to default.',
+          autoSaved: 'Auto-saved.'
+        }
+      }
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { ...defaultState };
+        return { ...defaultState, ...JSON.parse(raw) };
+      } catch {
+        return { ...defaultState };
+      }
+    }
+
+    function saveState(showToastMessage = false) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      if (showToastMessage) toast(t().toasts.saved);
+    }
+
+    function resetState() {
+      state = { ...defaultState, lang: state.lang || 'zh' };
+      saveState();
+      stepIndex = 0;
+      renderAll();
+      toast(t().toasts.reset);
+    }
+
+    function t() { return i18n[state.lang] || i18n.zh; }
     function $(id) { return document.getElementById(id); }
-    function num(id) { return Number($(id)?.value || 0); }
     function money(v) {
-      return new Intl.NumberFormat('en-CA', {
-        style: 'currency',
-        currency: 'CAD',
-        maximumFractionDigits: 0
-      }).format(Math.max(0, v || 0));
+      return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(Math.max(0, v || 0));
+    }
+    function num(id) { return Number($(id)?.value || 0); }
+    function val(id) { return $(id)?.value || ''; }
+
+    function getTaxParams(year) {
+      const table = {
+        2024: { federalBasic: 15705, ontarioBasic: 12399, fed1: 57375, on1: 51446 },
+        2025: { federalBasic: 16129, ontarioBasic: 12747, fed1: 57989, on1: 52886 },
+        2023: { federalBasic: 15000, ontarioBasic: 11865, fed1: 53359, on1: 49231 }
+      };
+      return table[year] || table[2024];
     }
 
-    function totalIncome() {
-      return state.employmentIncome + state.selfEmploymentIncome + state.otherIncome;
-    }
-
-    function familyNetIncome() {
-      return totalIncome() + (state.maritalStatus === 'married' ? state.spouseIncome : 0);
-    }
-
-    function bindMaritalCollect() {
-      const active = document.querySelector('.choice.active[data-value]');
-      if (active) state.maritalStatus = active.dataset.value;
-    }
-
-    function renderTabs() {
-      $('stepTabs').innerHTML = steps.map((s, i) => `<div class="step-tab ${i===stepIndex?'active':''}">${i+1}. ${s.title}</div>`).join('');
-    }
-
-    function bindChoiceEvents() {
-      const choices = document.querySelectorAll('#maritalChoices .choice');
-      choices.forEach(el => {
-        el.addEventListener('click', () => {
-          choices.forEach(c => c.classList.remove('active'));
-          el.classList.add('active');
-          state.maritalStatus = el.dataset.value;
-          renderSummaryAndResults();
-        });
-      });
-    }
-
-    function renderStep() {
-      const pct = Math.round(((stepIndex + 1) / steps.length) * 100);
-      $('progressText').textContent = `步骤 ${stepIndex + 1} / ${steps.length}`;
-      $('progressPercent').textContent = `${pct}%`;
-      $('progressFill').style.width = `${pct}%`;
-      renderTabs();
-      $('wizard').innerHTML = steps[stepIndex].render();
-      $('prevBtn').style.visibility = stepIndex === 0 ? 'hidden' : 'visible';
-      $('nextBtn').textContent = stepIndex === steps.length - 1 ? '完成并计算' : '下一步';
-      bindChoiceEvents();
-      renderSummaryAndResults();
-    }
+    function totalIncome() { return state.employmentIncome + state.selfEmploymentIncome + state.otherIncome; }
+    function familyIncome() { return totalIncome() + (state.maritalStatus === 'married' ? state.spouseIncome : 0); }
 
     function estimate() {
+      const tax = getTaxParams(state.taxYear);
       const income = totalIncome();
-      const familyIncome = familyNetIncome();
+      const famIncome = familyIncome();
       const spouse = state.maritalStatus === 'married';
 
       const rrspDeduction = state.rrsp;
       const childCareDeduction = Math.min(state.childCare, income * 0.66);
-      const adjustedIncome = Math.max(0, income - rrspDeduction - childCareDeduction);
-
-      const federalBasic = 15705;
-      const ontarioBasic = 12399;
+      const movingDeduction = state.newcomer === 'yes' ? 0 : Math.min(state.movingExpenses, income * 0.2);
+      const adjustedIncome = Math.max(0, income - rrspDeduction - childCareDeduction - movingDeduction);
 
       let fedTax = 0;
-      if (adjustedIncome > federalBasic) {
-        fedTax += Math.min(adjustedIncome - federalBasic, 57375 - federalBasic) * 0.15;
-        if (adjustedIncome > 57375) {
-          fedTax += Math.max(0, adjustedIncome - 57375) * 0.205;
-        }
+      if (adjustedIncome > tax.federalBasic) {
+        fedTax += Math.min(adjustedIncome - tax.federalBasic, tax.fed1 - tax.federalBasic) * 0.15;
+        if (adjustedIncome > tax.fed1) fedTax += Math.max(0, adjustedIncome - tax.fed1) * 0.205;
       }
 
       let onTax = 0;
-      if (adjustedIncome > ontarioBasic) {
-        onTax += Math.min(adjustedIncome - ontarioBasic, 51446 - ontarioBasic) * 0.0505;
-        if (adjustedIncome > 51446) {
-          onTax += Math.max(0, adjustedIncome - 51446) * 0.0915;
-        }
+      if (adjustedIncome > tax.ontarioBasic) {
+        onTax += Math.min(adjustedIncome - tax.ontarioBasic, tax.on1 - tax.ontarioBasic) * 0.0505;
+        if (adjustedIncome > tax.on1) onTax += Math.max(0, adjustedIncome - tax.on1) * 0.0915;
       }
 
       const tuitionCredit = state.tuition * 0.15;
       const medicalEligible = Math.max(0, state.medical - Math.min(adjustedIncome * 0.03, 2759));
       const medicalCredit = medicalEligible * 0.15;
-      const nonRefundableCredits = tuitionCredit + medicalCredit;
+      const firstHomeCredit = state.firstHomeBuyer === 'yes' ? 1500 : 0; // planning reminder style, capped simplification
+      const nonRefundableCredits = tuitionCredit + medicalCredit + firstHomeCredit;
       const taxAfterCredits = Math.max(0, fedTax + onTax - nonRefundableCredits);
-
       const refundFromWithheld = Math.max(0, state.taxWithheld - taxAfterCredits);
 
       let gst = 0;
       if (state.age >= 19 && state.residencyMonths > 0) {
-        const gstBase = 340 + (spouse ? 340 : 0) + state.childrenCount * 179;
+        const base = 340 + (spouse ? 340 : 0) + state.childrenCount * 179;
         const threshold = spouse ? 45000 : 42000;
-        const reduction = Math.max(0, (familyIncome - threshold) * 0.05);
-        gst = Math.max(0, gstBase - reduction);
+        const reduction = Math.max(0, (famIncome - threshold) * 0.05);
+        gst = Math.max(0, base - reduction);
+        if (state.newcomer === 'yes') gst *= 0.8;
       }
 
       let ostc = 0;
@@ -760,19 +730,18 @@
         const adults = spouse ? 2 : 1;
         const base = adults * 371 + state.childrenCount * 186;
         const threshold = spouse ? 50000 : 43000;
-        const reduction = Math.max(0, (familyIncome - threshold) * 0.04);
+        const reduction = Math.max(0, (famIncome - threshold) * 0.04);
         ostc = Math.max(0, base - reduction);
       }
 
       let oeptc = 0;
       if (state.residencyMonths > 0) {
-        const rentComponent = state.rentPaid * 0.2;
-        const propertyComponent = state.propertyTaxPaid * 0.5;
-        const occupancyBase = Math.max(rentComponent, propertyComponent);
+        const occupancyBase = Math.max(state.rentPaid * 0.2, state.propertyTaxPaid * 0.5);
         const cap = state.age >= 65 ? 1500 : 1300;
         const threshold = spouse ? 36000 : 30000;
-        const reduction = Math.max(0, (familyIncome - threshold) * 0.02);
+        const reduction = Math.max(0, (famIncome - threshold) * 0.02);
         oeptc = Math.max(0, Math.min(cap, occupancyBase) - reduction);
+        oeptc *= Math.max(0.25, Math.min(1, state.residencyMonths / 12));
       }
 
       const trillium = ostc + oeptc;
@@ -780,138 +749,428 @@
       let cwb = 0;
       if (income > 3000) {
         const max = spouse ? 2800 : 1700;
-        const buildRate = 0.27;
-        const built = Math.min(max, Math.max(0, (income - 3000) * buildRate));
+        const built = Math.min(max, Math.max(0, (income - 3000) * 0.27));
         const threshold = spouse ? 26000 : 24000;
-        const reduction = Math.max(0, (familyIncome - threshold) * 0.12);
+        const reduction = Math.max(0, (famIncome - threshold) * 0.12);
         cwb = Math.max(0, built - reduction);
+        if (state.newcomer === 'yes') cwb *= 0.9;
       }
 
       const total = refundFromWithheld + gst + trillium + cwb;
 
       return {
-        income,
-        familyIncome,
-        adjustedIncome,
-        taxAfterCredits,
-        refundFromWithheld,
-        gst,
-        ostc,
-        oeptc,
-        trillium,
-        cwb,
-        tuitionCredit,
-        medicalCredit,
-        childCareDeduction,
-        total
+        income, famIncome, adjustedIncome, taxAfterCredits, refundFromWithheld,
+        gst, ostc, oeptc, trillium, cwb,
+        tuitionCredit, medicalCredit, firstHomeCredit,
+        childCareDeduction, movingDeduction, total
       };
     }
 
     function insightText(est) {
+      if (state.lang === 'en') {
+        const notes = [];
+        if (est.refundFromWithheld > 0) notes.push('Your withholding appears higher than this simplified tax estimate, so refund potential exists.');
+        if (est.trillium > 0 && (state.rentPaid > 0 || state.propertyTaxPaid > 0)) notes.push('Housing costs are materially increasing your Ontario Trillium estimate.');
+        if (state.maritalStatus === 'married' && state.spouseIncome > 0) notes.push('Spousal income is affecting family-income-tested benefits.');
+        if (state.rrsp > 0) notes.push('RRSP contributions are reducing estimated taxable income.');
+        if (state.newcomer === 'yes') notes.push('Newcomer status is treated conservatively here, so actual outcomes may differ.');
+        return notes.slice(0, 3).join(' ') || 'Your result is currently driven mostly by income level, withholding, and family-income-tested benefits.';
+      }
       const notes = [];
-      if (est.refundFromWithheld > 0) notes.push('你有明显的“预扣税退回”空间，说明公司代扣税额高于本次简化估算的最终税负。');
-      if (est.trillium > 0 && (state.rentPaid > 0 || state.propertyTaxPaid > 0)) notes.push('你的住房支出正在明显拉高 Ontario Trillium Benefit。');
-      if (state.maritalStatus === 'married' && state.spouseIncome > 0) notes.push('配偶收入正在影响家庭口径福利，尤其是 GST/HST、OTB、CWB。');
-      if (state.rrsp > 0) notes.push('RRSP 供款正在降低你的应税收入，对退税方向是有帮助的。');
-      if (state.tuition > 0) notes.push('学费抵税主要作用是减少应纳税额，不一定直接等额变成现金。');
-      if (state.childCare > 0) notes.push('托儿费在这个估算器里按“降低收入”的方向处理，现实报税中归属规则更细。');
-      if (notes.length === 0) return '你当前的结果主要还是由收入水平和已预扣税决定。想进一步拉开差距，通常要看 RRSP、学费、住房支出和家庭收入结构。';
-      return notes.slice(0, 3).join(' ');
+      if (est.refundFromWithheld > 0) notes.push('你有明显的预扣税退回空间，说明雇主代扣税额高于这次简化估算下的最终税负。');
+      if (est.trillium > 0 && (state.rentPaid > 0 || state.propertyTaxPaid > 0)) notes.push('住房成本正在明显拉高你的 Ontario Trillium Benefit。');
+      if (state.maritalStatus === 'married' && state.spouseIncome > 0) notes.push('配偶收入正在影响以家庭收入为基础的福利额度。');
+      if (state.rrsp > 0) notes.push('RRSP 供款正在降低估算应税收入。');
+      if (state.newcomer === 'yes') notes.push('由于你勾选了新移民/首年税务居民，这里采用了更保守的处理方式。');
+      return notes.slice(0, 3).join(' ') || '当前结果主要由收入水平、预扣税以及家庭收入型福利共同决定。';
+    }
+
+    const steps = [
+      {
+        render() {
+          const L = t();
+          return `
+            <div class="question">${L.questions[0][0]}</div>
+            <div class="desc">${L.questions[0][1]}</div>
+            <div class="field-grid">
+              <div class="row-2">
+                <div class="field"><label>${L.labels.taxYear}</label><input id="taxYear" type="number" min="2020" max="2100" value="${state.taxYear}"></div>
+                <div class="field"><label>${L.labels.age}</label><input id="age" type="number" min="16" max="100" value="${state.age}"></div>
+              </div>
+              <div class="field">
+                <label>${L.labels.marital}</label>
+                <div class="choice-row" id="maritalChoices">
+                  <div class="choice ${state.maritalStatus==='single'?'active':''}" data-key="maritalStatus" data-value="single"><div class="title">${L.labels.single}</div></div>
+                  <div class="choice ${state.maritalStatus==='married'?'active':''}" data-key="maritalStatus" data-value="married"><div class="title">${L.labels.married}</div></div>
+                </div>
+              </div>
+              <div class="row-2">
+                <div class="field"><label>${L.labels.residencyMonths}</label><input id="residencyMonths" type="number" min="0" max="12" value="${state.residencyMonths}"><small>${L.help.residencyMonths}</small></div>
+                <div class="field">
+                  <label>${L.labels.newcomer}</label>
+                  <div class="choice-row" id="newcomerChoices">
+                    <div class="choice ${state.newcomer==='yes'?'active':''}" data-key="newcomer" data-value="yes"><div class="title">${L.labels.yes}</div></div>
+                    <div class="choice ${state.newcomer==='no'?'active':''}" data-key="newcomer" data-value="no"><div class="title">${L.labels.no}</div></div>
+                  </div>
+                  <small>${L.help.newcomer}</small>
+                </div>
+              </div>
+            </div>
+          `;
+        },
+        collect() {
+          state.taxYear = num('taxYear');
+          state.age = num('age');
+          state.residencyMonths = num('residencyMonths');
+        }
+      },
+      {
+        render() {
+          const L = t();
+          return `
+            <div class="question">${L.questions[1][0]}</div>
+            <div class="desc">${L.questions[1][1]}</div>
+            <div class="field-grid">
+              <div class="row-2">
+                <div class="field"><label>${L.labels.childrenCount}</label><input id="childrenCount" type="number" min="0" max="20" value="${state.childrenCount}"></div>
+                <div class="field"><label>${L.labels.spouseIncome}</label><input id="spouseIncome" type="number" min="0" step="0.01" value="${state.spouseIncome}"><small>${L.help.spouseIncome}</small></div>
+              </div>
+            </div>
+          `;
+        },
+        collect() {
+          state.childrenCount = num('childrenCount');
+          state.spouseIncome = state.maritalStatus === 'married' ? num('spouseIncome') : 0;
+        }
+      },
+      {
+        render() {
+          const L = t();
+          return `
+            <div class="question">${L.questions[2][0]}</div>
+            <div class="desc">${L.questions[2][1]}</div>
+            <div class="field-grid">
+              <div class="row-2">
+                <div class="field"><label>${L.labels.employmentIncome}</label><input id="employmentIncome" type="number" min="0" step="0.01" value="${state.employmentIncome}"></div>
+                <div class="field"><label>${L.labels.selfEmploymentIncome}</label><input id="selfEmploymentIncome" type="number" min="0" step="0.01" value="${state.selfEmploymentIncome}"></div>
+              </div>
+              <div class="row-2">
+                <div class="field"><label>${L.labels.otherIncome}</label><input id="otherIncome" type="number" min="0" step="0.01" value="${state.otherIncome}"></div>
+                <div class="field"><label>${L.labels.taxWithheld}</label><input id="taxWithheld" type="number" min="0" step="0.01" value="${state.taxWithheld}"><small>${L.help.taxWithheld}</small></div>
+              </div>
+            </div>
+          `;
+        },
+        collect() {
+          state.employmentIncome = num('employmentIncome');
+          state.selfEmploymentIncome = num('selfEmploymentIncome');
+          state.otherIncome = num('otherIncome');
+          state.taxWithheld = num('taxWithheld');
+        }
+      },
+      {
+        render() {
+          const L = t();
+          return `
+            <div class="question">${L.questions[3][0]}</div>
+            <div class="desc">${L.questions[3][1]}</div>
+            <div class="field-grid">
+              <div class="row-2">
+                <div class="field"><label>${L.labels.rentPaid}</label><input id="rentPaid" type="number" min="0" step="0.01" value="${state.rentPaid}"></div>
+                <div class="field"><label>${L.labels.propertyTaxPaid}</label><input id="propertyTaxPaid" type="number" min="0" step="0.01" value="${state.propertyTaxPaid}"></div>
+              </div>
+            </div>
+          `;
+        },
+        collect() {
+          state.rentPaid = num('rentPaid');
+          state.propertyTaxPaid = num('propertyTaxPaid');
+        }
+      },
+      {
+        render() {
+          const L = t();
+          return `
+            <div class="question">${L.questions[4][0]}</div>
+            <div class="desc">${L.questions[4][1]}</div>
+            <div class="field-grid">
+              <div class="row-2">
+                <div class="field"><label>${L.labels.tuition}</label><input id="tuition" type="number" min="0" step="0.01" value="${state.tuition}"></div>
+                <div class="field"><label>${L.labels.rrsp}</label><input id="rrsp" type="number" min="0" step="0.01" value="${state.rrsp}"></div>
+              </div>
+              <div class="row-2">
+                <div class="field"><label>${L.labels.childCare}</label><input id="childCare" type="number" min="0" step="0.01" value="${state.childCare}"></div>
+                <div class="field"><label>${L.labels.medical}</label><input id="medical" type="number" min="0" step="0.01" value="${state.medical}"></div>
+              </div>
+              <div class="row-2">
+                <div class="field"><label>${L.labels.movingExpenses}</label><input id="movingExpenses" type="number" min="0" step="0.01" value="${state.movingExpenses}"><small>${L.help.movingExpenses}</small></div>
+                <div class="field">
+                  <label>${L.labels.firstHomeBuyer}</label>
+                  <div class="choice-row" id="firstHomeChoices">
+                    <div class="choice ${state.firstHomeBuyer==='yes'?'active':''}" data-key="firstHomeBuyer" data-value="yes"><div class="title">${L.labels.yes}</div></div>
+                    <div class="choice ${state.firstHomeBuyer==='no'?'active':''}" data-key="firstHomeBuyer" data-value="no"><div class="title">${L.labels.no}</div></div>
+                  </div>
+                  <small>${L.help.firstHomeBuyer}</small>
+                </div>
+              </div>
+            </div>
+          `;
+        },
+        collect() {
+          state.tuition = num('tuition');
+          state.rrsp = num('rrsp');
+          state.childCare = num('childCare');
+          state.medical = num('medical');
+          state.movingExpenses = num('movingExpenses');
+        }
+      },
+      {
+        render() {
+          const L = t();
+          return `
+            <div class="question">${L.questions[5][0]}</div>
+            <div class="desc">${L.questions[5][1]}</div>
+            <div class="field-grid">
+              <div class="field"><label>${L.labels.consultName}</label><input id="consultName" type="text" value="${escapeHtml(state.consultName)}"></div>
+              <div class="field"><label>${L.labels.consultContact}</label><input id="consultContact" type="text" value="${escapeHtml(state.consultContact)}"></div>
+              <div class="field"><label>${L.labels.consultNotes}</label><textarea id="consultNotes" rows="4">${escapeHtml(state.consultNotes)}</textarea></div>
+              <div class="field">
+                <label>${state.lang === 'zh' ? '保存说明' : 'Save note'}</label>
+                <small>${state.lang === 'zh'
+                  ? '点击右上角“保存”可写入当前浏览器；“导出”可下载 JSON 文件；“导入”可恢复之前保存的文件。'
+                  : 'Use “Save” to store in this browser, “Export” to download JSON, and “Import” to restore from a saved file.'}
+                </small>
+              </div>
+            </div>
+          `;
+        },
+        collect() {
+          state.consultName = val('consultName');
+          state.consultContact = val('consultContact');
+          state.consultNotes = val('consultNotes');
+        }
+      }
+    ];
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function bindChoiceGroup(id) {
+      const box = $(id);
+      if (!box) return;
+      const items = box.querySelectorAll('.choice[data-key]');
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          items.forEach(el => el.classList.remove('active'));
+          item.classList.add('active');
+          state[item.dataset.key] = item.dataset.value;
+          autoSave();
+          renderSummaryAndResults();
+        });
+      });
+    }
+
+    function renderStaticText() {
+      const L = t();
+      $('brandTitle').textContent = L.brandTitle;
+      $('brandSub').textContent = L.brandSub;
+      $('heroBadge').textContent = L.heroBadge;
+      $('heroTitle').textContent = L.heroTitle;
+      $('heroText').textContent = L.heroText;
+      $('totalLabel').textContent = L.totalLabel;
+      $('totalSub').textContent = L.totalSub;
+      $('saveCardTitle').textContent = L.saveCardTitle;
+      $('saveCardText').textContent = L.saveCardText;
+      $('summaryTitle').textContent = L.summaryTitle;
+      $('resultTitle').textContent = L.resultTitle;
+      $('marketingTitle').textContent = L.marketingTitle;
+      $('disclaimer').textContent = L.disclaimer;
+      $('prevBtn').textContent = L.buttons.prev;
+      $('nextBtn').textContent = stepIndex === steps.length - 1 ? L.buttons.finish : L.buttons.next;
+      $('langBtn').textContent = L.buttons.lang;
+      $('saveBtn').textContent = L.buttons.save;
+      $('exportBtn').textContent = L.buttons.export;
+      $('importBtn').textContent = L.buttons.import;
+      $('resetBtn').textContent = L.buttons.reset;
+      $('heroPills').innerHTML = L.heroPills.map(p => `<div class="pill">${p}</div>`).join('');
+      $('marketingList').innerHTML = L.marketingList.map(([a,b]) => `<div class="mark-item"><div class="value" style="font-size:17px;">${a}</div><div class="muted">${b}</div></div>`).join('');
+    }
+
+    function renderTabs() {
+      const L = t();
+      $('stepTabs').innerHTML = L.steps.map((name, i) => `<div class="step-tab ${i===stepIndex?'active':''}">${i+1}. ${name}</div>`).join('');
+    }
+
+    function renderStep() {
+      const L = t();
+      const pct = Math.round(((stepIndex + 1) / steps.length) * 100);
+      $('progressText').textContent = `${L.langPrefix || ''}${state.lang === 'zh' ? '步骤' : 'Step'} ${stepIndex + 1} / ${steps.length}`;
+      $('progressPercent').textContent = `${pct}%`;
+      $('progressFill').style.width = `${pct}%`;
+      renderTabs();
+      $('wizard').innerHTML = steps[stepIndex].render();
+      $('prevBtn').style.visibility = stepIndex === 0 ? 'hidden' : 'visible';
+      $('nextBtn').textContent = stepIndex === steps.length - 1 ? L.buttons.finish : L.buttons.next;
+      bindChoiceGroup('maritalChoices');
+      bindChoiceGroup('newcomerChoices');
+      bindChoiceGroup('firstHomeChoices');
+      bindAutoFieldSave();
+    }
+
+    function bindAutoFieldSave() {
+      document.querySelectorAll('#wizard input, #wizard textarea, #wizard select').forEach(el => {
+        el.addEventListener('input', () => {
+          collectCurrentStep(false);
+          autoSave(true);
+        });
+      });
+    }
+
+    let autoSaveTimer = null;
+    function autoSave(show = false) {
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(() => {
+        saveState(false);
+        if (show) toast(t().toasts.autoSaved);
+      }, 250);
+    }
+
+    function collectCurrentStep(render = true) {
+      steps[stepIndex].collect();
+      if (render) renderSummaryAndResults();
     }
 
     function renderSummaryAndResults() {
+      const L = t();
       const est = estimate();
       $('heroGrandTotal').textContent = money(est.total);
-
       $('summaryList').innerHTML = `
-        <div class="sum-item">
-          <div class="label">个人总收入</div>
-          <div class="value">${money(est.income)}</div>
-        </div>
-        <div class="sum-item">
-          <div class="label">家庭收入口径</div>
-          <div class="value">${money(est.familyIncome)}</div>
-        </div>
-        <div class="sum-item">
-          <div class="label">调整后估算收入</div>
-          <div class="value">${money(est.adjustedIncome)}</div>
-          <div class="muted">已粗略考虑 RRSP 和托儿费。</div>
-        </div>
-        <div class="sum-item">
-          <div class="label">已预扣税</div>
-          <div class="value">${money(state.taxWithheld)}</div>
-        </div>
-        <div class="sum-item">
-          <div class="label">住房支出</div>
-          <div class="value">${money(state.rentPaid + state.propertyTaxPaid)}</div>
-        </div>
+        <div class="sum-item"><div class="label">${L.resultLabels.income}</div><div class="value">${money(est.income)}</div></div>
+        <div class="sum-item"><div class="label">${L.resultLabels.familyIncome}</div><div class="value">${money(est.famIncome)}</div></div>
+        <div class="sum-item"><div class="label">${L.resultLabels.adjustedIncome}</div><div class="value">${money(est.adjustedIncome)}</div><div class="muted">RRSP + child care + moving expense (simplified)</div></div>
+        <div class="sum-item"><div class="label">${L.resultLabels.withheld}</div><div class="value">${money(state.taxWithheld)}</div></div>
+        <div class="sum-item"><div class="label">${L.resultLabels.housing}</div><div class="value">${money(state.rentPaid + state.propertyTaxPaid)}</div></div>
       `;
-
       $('insightBox').textContent = insightText(est);
-
       $('resultList').innerHTML = `
         <div class="result-item hero-total">
-          <div class="label">预估可获得总额</div>
+          <div class="label">${L.resultLabels.total}</div>
           <div class="value" style="font-size:34px;">${money(est.total)}</div>
-          <div class="muted">这是“可能退回的税 + 可退还福利”的合计估算，不等于最终 NOA 金额。</div>
+          <div class="muted">${state.lang === 'zh' ? '这是“可能退回的税 + 现金性福利”的估算合计。' : 'Combined estimate of potential tax refund and cash-like benefits.'}</div>
         </div>
-
         <div class="result-item">
-          <div class="label">工资预扣税可能退回部分 <span class="tag ${est.refundFromWithheld>0?'green':'yellow'}">${est.refundFromWithheld>0?'可能较高':'有限'}</span></div>
+          <div class="label">${L.resultLabels.refund}<span class="tag ${est.refundFromWithheld>0?'green':'yellow'}">${est.refundFromWithheld>0?L.tags.high:L.tags.limited}</span></div>
           <div class="value">${money(est.refundFromWithheld)}</div>
-          <div class="muted">如果雇主全年预扣税偏高，而你又有 RRSP、学费、医疗费等抵税项目，通常更容易形成退税。</div>
+          <div class="muted">${state.lang === 'zh' ? '预扣税高于最终估算税负时，通常会形成退税。' : 'Refunds often arise when payroll withholding exceeds final estimated tax.'}</div>
         </div>
-
         <div class="result-item">
-          <div class="label">GST/HST Credit <span class="tag ${est.gst>0?'green':'yellow'}">${est.gst>0?'较可能符合':'可能不符合'}</span></div>
+          <div class="label">${L.resultLabels.gst}<span class="tag ${est.gst>0?'green':'yellow'}">${est.gst>0?L.tags.likely:L.tags.maybe}</span></div>
           <div class="value">${money(est.gst)}</div>
-          <div class="muted">按家庭收入做的简化估算，通常按季度发放。</div>
+          <div class="muted">${state.lang === 'zh' ? '按家庭收入简化估算，通常按季度发放。' : 'Simplified family-income estimate, usually paid quarterly.'}</div>
         </div>
-
         <div class="result-item">
-          <div class="label">Ontario Trillium Benefit <span class="tag ${est.trillium>0?'green':'yellow'}">${est.trillium>0?'值得关注':'偏少'}</span></div>
+          <div class="label">${L.resultLabels.trillium}<span class="tag ${est.trillium>0?'green':'yellow'}">${est.trillium>0?L.tags.focus:L.tags.low}</span></div>
           <div class="value">${money(est.trillium)}</div>
-          <div class="muted">其中 Ontario Sales Tax Credit ≈ ${money(est.ostc)}，能源/房产税部分 ≈ ${money(est.oeptc)}。</div>
+          <div class="muted">OSTC ≈ ${money(est.ostc)} · OEPTC ≈ ${money(est.oeptc)}</div>
         </div>
-
         <div class="result-item">
-          <div class="label">Canada Workers Benefit <span class="tag ${est.cwb>0?'blue':'yellow'}">${est.cwb>0?'可能可领':'可能不符合'}</span></div>
+          <div class="label">${L.resultLabels.cwb}<span class="tag ${est.cwb>0?'blue':'yellow'}">${est.cwb>0?L.tags.eligible:L.tags.maybe}</span></div>
           <div class="value">${money(est.cwb)}</div>
-          <div class="muted">适用于有工作收入但收入不高的人群，家庭收入会显著影响额度。</div>
+          <div class="muted">${state.lang === 'zh' ? '有工作收入但收入不高时，这项可能出现。' : 'May apply when you have working income but modest earnings.'}</div>
         </div>
-
         <div class="result-item">
-          <div class="label">抵税项影响（非直接现金）</div>
-          <div class="value">${money(est.tuitionCredit + est.medicalCredit)}</div>
-          <div class="muted">联邦学费抵税约 ${money(est.tuitionCredit)}；医疗抵税约 ${money(est.medicalCredit)}。这类项目主要用来减少应纳税额。</div>
+          <div class="label">${L.resultLabels.credits}</div>
+          <div class="value">${money(est.tuitionCredit + est.medicalCredit + est.firstHomeCredit)}</div>
+          <div class="muted">${state.lang === 'zh' ? `学费抵税约 ${money(est.tuitionCredit)}；医疗抵税约 ${money(est.medicalCredit)}；首套房提示抵免约 ${money(est.firstHomeCredit)}。` : `Tuition credit ≈ ${money(est.tuitionCredit)}; medical credit ≈ ${money(est.medicalCredit)}; first-home planning credit ≈ ${money(est.firstHomeCredit)}.`}</div>
         </div>
-
         <div class="result-item">
-          <div class="label">估算最终应纳税额</div>
+          <div class="label">${L.resultLabels.tax}</div>
           <div class="value">${money(est.taxAfterCredits)}</div>
-          <div class="muted">这是简化模型下的结果，不含很多真实申报细项，所以更适合作为方向判断。</div>
+          <div class="muted">${state.lang === 'zh' ? '简化估算，不含完整 T1 细项。' : 'Simplified estimate; not a full T1 return model.'}</div>
         </div>
       `;
     }
 
-    function collectCurrentStep() {
-      steps[stepIndex].collect();
+    function exportState() {
+      collectCurrentStep(false);
+      saveState();
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ontario-tax-guide-${state.taxYear}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast(t().toasts.exported);
+    }
+
+    function importState(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          state = { ...defaultState, ...data, lang: data.lang || state.lang || 'zh' };
+          saveState();
+          stepIndex = 0;
+          renderAll();
+          toast(t().toasts.imported);
+        } catch {
+          toast('Import failed / 导入失败');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function toast(msg) {
+      const el = $('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => el.classList.remove('show'), 1800);
+    }
+
+    function renderAll() {
+      renderStaticText();
+      renderStep();
       renderSummaryAndResults();
     }
 
     $('prevBtn').addEventListener('click', () => {
-      collectCurrentStep();
+      collectCurrentStep(false);
       if (stepIndex > 0) stepIndex--;
-      renderStep();
+      renderAll();
     });
-
     $('nextBtn').addEventListener('click', () => {
-      collectCurrentStep();
+      collectCurrentStep(false);
       if (stepIndex < steps.length - 1) stepIndex++;
-      renderStep();
+      renderAll();
+      autoSave();
     });
+    $('langBtn').addEventListener('click', () => {
+      state.lang = state.lang === 'zh' ? 'en' : 'zh';
+      saveState();
+      renderAll();
+    });
+    $('saveBtn').addEventListener('click', () => {
+      collectCurrentStep(false);
+      saveState(true);
+    });
+    $('exportBtn').addEventListener('click', exportState);
+    $('importBtn').addEventListener('click', () => $('fileInput').click());
+    $('fileInput').addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (file) importState(file);
+      e.target.value = '';
+    });
+    $('resetBtn').addEventListener('click', resetState);
 
-    renderStep();
+    renderAll();
   </script>
 </body>
 </html>
